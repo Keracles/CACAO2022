@@ -177,7 +177,7 @@ public abstract class Producteur1Producteur extends Producteur1Stock{
 	}
 	
 	public int MilleArbresAPlanter(Parc p, HashMap<Feve, Double> venteChoco) { //Écrit par Antoine
-		//Donne le nombre de MilleArbres à planter par parc en fonction de l'évolution de la demande
+		//Donne le nombre de MilleArbres à planter par parc en fonction de l'évolution de la demande (this.getVente_tot() correspond à la demande 24ut avant -> changer pour avoir le max sur les 24 ut précédentes ?)
 		double vente_tot = getVente_tot_choco(venteChoco);
 		double augmentation_max = 0.02;
 		int nb_arbre = p.getNb_arbres_tot();
