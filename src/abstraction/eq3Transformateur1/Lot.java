@@ -5,13 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 /* anna*/
 import abstraction.eq8Romu.produits.Chocolat;
-
+// création de lot (quantité, date de péremtion) et des fonctions asociées, auteur : anna
 public class Lot{
 	
 	private double quantite;
 	private int date;
 	
-	public Lot() {
+	public Lot(double quantite, int date) {
 		super();
 		this.quantite = quantite ;
 		this.date = date;

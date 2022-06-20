@@ -39,14 +39,14 @@ public class Transformateur1ContratCadreAcheteur extends Transformateur1ContratC
 				}
 			}
 		}
-		journalCCA.ajouter("Je ne souhaite pas faire un nouveau contrat cadre acheteur de " + produit);
+		//journalCCA.ajouter("Je ne souhaite pas faire un nouveau contrat cadre acheteur de " + produit);
 		return false;
 	}
 
 	// négocie un échancier inférieur à 6 échéances; auteur Julien */
 	public Echeancier contrePropositionDeLAcheteur(ExemplaireContratCadre contrat) {
 		if (contrat.getEcheancier().getNbEcheances()<100) {
-			journalCCA.ajouter("J'accepte cet échéancier");
+			journalCCA.ajouter("J'accepte cet échéancier de "+ contrat.getEcheancier().getNbEcheances()+" avec l'acteur"+contrat.getVendeur().getNom());
 			return contrat.getEcheancier();
 		}
 		journalCCA.ajouter("Je refuse cet échéancier");
@@ -59,7 +59,7 @@ public class Transformateur1ContratCadreAcheteur extends Transformateur1ContratC
 			journalCCA.ajouter("J'accepte ce prix "+ contrat.getPrix());
 			return contrat.getPrix();
 		} else {
-			journalCCA.ajouter("Je propose un nouveau prix car ils ont proposé : "+ contrat.getPrix());
+			journalCCA.ajouter("Je propose un nouveau prix car ils ont proposé : "+ contrat.getPrix()+" du vendeur "+ contrat.getVendeur().getNom());
 			return prixAchatFeve.get(contrat.getProduit());
 			
 		}

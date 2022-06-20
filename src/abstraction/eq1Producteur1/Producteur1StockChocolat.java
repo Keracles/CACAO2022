@@ -42,6 +42,7 @@ public class Producteur1StockChocolat extends ProducteurActeur1VenteBourse {
 	
 	public void next(){
 		super.next();
+		this.MAJStock();
 		
 		//Mis à jour Variable
 		this.StockBQ.setValeur(this, this.getStock(Chocolat.BQ));
@@ -93,6 +94,19 @@ public double getStockParc(Chocolat c, Parc provenance){
 			else {
 				this.getChocolats().get(c).get(0).setPoids(poids-quantite); //Si non, on ajuste le poids du lot
 				quantite = 0 ;
+			}
+		}
+	}
+	
+	public void MAJStock() {
+		
+		for(Chocolat chocolat : this.getChocolats().keySet()) {
+			for (int i=0; i< this.getChocolats().get(chocolat).size(); i++) {
+				this.getChocolats().get(chocolat).get(i).MajPeremption();
+				
+				if (this.getChocolats().get(chocolat).get(i).isPerime()) { //On retire du stock si c'est périmée
+					this.getChocolats().get(chocolat).remove(i);
+				}
 			}
 		}
 	}

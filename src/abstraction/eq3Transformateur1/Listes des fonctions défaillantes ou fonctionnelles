@@ -1,0 +1,16 @@
+mise à jour du nombre de fèves stockage ok
+mise à jour du nombre de chocolats stockage ok
+prise en compte de la date de péremption ok
+Détermination du prix maximum d'achat ok
+Détermination des quantités et du type ok
+Contrat cadre achat ok
+Bourse ok
+Détermination du prix de vente minimum ok
+Lancement d'appels d'offre ok
+Contrat cadre vente ok
+Choix de la quantité à produire ok
+Choix transformation ok
+Tranformation ok
+
+Bugs détectés : 
+coûts de stockage négatifs

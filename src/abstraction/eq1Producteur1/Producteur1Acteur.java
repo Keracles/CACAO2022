@@ -142,6 +142,7 @@ public abstract class Producteur1Acteur implements IActeur, IFabricantChocolatDe
 		List<ChocolatDeMarque> cm=new ArrayList<ChocolatDeMarque>();
 		cm.add(new ChocolatDeMarque(Chocolat.MQ_O,"CHOCO'riginal"));
 		cm.add(new ChocolatDeMarque(Chocolat.MQ,"CHOCO'riginal"));
+		cm.add(new ChocolatDeMarque(Chocolat.BQ, "O'ptella"));
 		return cm;
 	}
 	

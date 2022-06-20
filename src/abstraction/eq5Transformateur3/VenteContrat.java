@@ -24,9 +24,8 @@ public class VenteContrat extends Transformation implements IVendeurContratCadre
 	//chgmt 
 	public void lanceruncontratVendeur(ChocolatDeMarque c) {
 		List<IAcheteurContratCadre> L =  ((SuperviseurVentesContratCadre)(Filiere.LA_FILIERE.getActeur("Sup.CCadre"))).getAcheteurs(c);
-		Echeancier e = new Echeancier(Filiere.LA_FILIERE.getEtape()+1, 3, 1000000); //10000 kg de chocolat sur 10 steps
+		Echeancier e = new Echeancier(Filiere.LA_FILIERE.getEtape()+1, 5, 100000); //10000 kg de chocolat sur 10 steps
 		List<IAcheteurContratCadre>L2 = new LinkedList<IAcheteurContratCadre>();
-		this.nb_prop = 0;
 		for (IAcheteurContratCadre a : L) {
 			if (a instanceof IDistributeurChocolatDeMarque) {
 				L2.add(a);//d.remove(Filiere.LA_FILIERE.getActeur("eq8"));
@@ -74,8 +73,7 @@ public class VenteContrat extends Transformation implements IVendeurContratCadre
 
 	//Yves
 	public double propositionPrix(ExemplaireContratCadre contrat) {
-		this.nb_prop += 1;
-		
+		this.ventes.ajouter("on fait une contreproposition sur le prix");
 		BourseCacao bourse = (BourseCacao)(Filiere.LA_FILIERE.getActeur("BourseCacao"));
 		ChocolatDeMarque c = (ChocolatDeMarque)contrat.getProduit();
 		Gamme gamme = c.getGamme();
@@ -90,15 +88,13 @@ public class VenteContrat extends Transformation implements IVendeurContratCadre
 		
 		if (feve != null) {
 			Double seuilMax = bourse.getCours(feve).getMin();
-			//Double seuilMax = 2.0;
-			//this.achats.ajouter("seuilMax de " + feve.toString() + "vaut " + seuilMax.toString());
 
 			if (contrat.getProduit() instanceof ChocolatDeMarque) {
 				if (((ChocolatDeMarque)(contrat.getProduit())).isOriginal()) {
-					return 2*(seuilMax+this.coutTransformation.getValeur()+this.coutOriginal.getValeur());
+					return 1.5*(seuilMax+this.coutTransformation.getValeur()+this.coutOriginal.getValeur());
 				}
 				else {
-					return 2*(seuilMax+this.coutTransformation.getValeur());
+					return 1.5*(seuilMax+this.coutTransformation.getValeur());
 				}
 			}
 							
@@ -111,21 +107,25 @@ public class VenteContrat extends Transformation implements IVendeurContratCadre
 	//Yves
 	public double contrePropositionPrixVendeur(ExemplaireContratCadre contrat) {
 		BourseCacao bourse = (BourseCacao)(Filiere.LA_FILIERE.getActeur("BourseCacao"));
-		Double seuilMax = bourse.getCours((Feve)contrat.getProduit()).getMin();
+		//Double seuilMin = bourse.getCours(((ChocolatDeMarque)contrat.getProduit()).getChocolat().get).getMax();
+		Double seuilMin=15.0;
 		//Double seuilMax = 2.0;
+		double original = 0.0;
 		if (((ChocolatDeMarque)(contrat.getProduit())).isOriginal()) {
-			if (contrat.getPrix()>2*(seuilMax+this.coutTransformation.getValeur()+this.coutOriginal.getValeur())){
-				this.ventes.ajouter("nous acceptons "+contrat.getPrix().toString());
-				return contrat.getPrix();
-			}
-		} 
+			original += 1;
+		}
+		if (contrat.getPrix()>2*(seuilMin+this.coutTransformation.getValeur()+original*this.coutOriginal.getValeur())){
+			this.ventes.ajouter("nous acceptons "+contrat.getPrix().toString());
+			return contrat.getPrix();
+			} 
 		else {
 			/* on baisse nos prix progressivement tout en étant sur d'être rentable (vendre au dessus de 1 fois nos couts totaux) */
-			double Nprix = (2.0-0.07*this.nb_prop)*(seuilMax+this.coutTransformation.getValeur()+this.coutOriginal.getValeur());
-			this.ventes.ajouter("nous contreproposons " + Nprix);
-			return Nprix;
+			double Nprix = 2*contrat.getPrix();
+			if (Nprix>2*(seuilMin+this.coutTransformation.getValeur()+original*this.coutOriginal.getValeur())) {
+				this.ventes.ajouter("nous contreproposons " + Nprix);
+				return Nprix;
+			}
 		}
-		
 		return 0.0;
 	}
 
@@ -162,6 +162,7 @@ public class VenteContrat extends Transformation implements IVendeurContratCadre
 			for (Feve f : this.stockFeves.getProduitsEnStock()) {
 				if (f.getGamme() == g && f.isBioEquitable() == be) {
 					if (this.stockChocolat.getstock(c) > this.besoinFeves.get(f)) {
+						this.ventes.ajouter("on a du surplus");
 						if (be == true) {
 							ChocolatDeMarque choco_O = new ChocolatDeMarque(c,"BIO'riginal");
 							lanceruncontratVendeur(choco_O);	

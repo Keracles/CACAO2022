@@ -185,10 +185,11 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 		}
 		
 		//CHOCOLAT
-		if (contrat.getProduit() instanceof Feve) {
-		double livre = Math.min(this.getStock((Chocolat)contrat.getProduit()), quantite);
+		if (contrat.getProduit() instanceof ChocolatDeMarque) {
+		Chocolat c = ((ChocolatDeMarque) contrat.getProduit()).getChocolat();	
+		double livre = Math.min(this.getStock(c), quantite);
 		if (livre>0.0) {
-			this.retirerQuantite((Chocolat)contrat.getProduit(), livre);;
+			this.retirerQuantite(c, livre);;
 		}
 		this.getContratCadre().ajouter("============================================");
 		this.getContratCadre().ajouter("LIVRAISON " + contrat.getProduit() +" "+contrat.getAcheteur().getNom()+ " Quantité demandée " + quantite +" Livré " + livre
@@ -287,7 +288,7 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 	
 	@Override
 	/**
-	 * @author laure
+	 * @author laure, Khéo
 	 * @param contrat
 	 * @return prix contrat 
 	 */

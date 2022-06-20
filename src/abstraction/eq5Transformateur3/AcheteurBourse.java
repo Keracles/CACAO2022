@@ -4,21 +4,22 @@ import abstraction.eq8Romu.bourseCacao.BourseCacao;
 import abstraction.eq8Romu.bourseCacao.IAcheteurBourse;
 import abstraction.eq8Romu.filiere.Filiere;
 import abstraction.eq8Romu.produits.Feve;
+import abstraction.eq8Romu.produits.Gamme;
 
 public class AcheteurBourse  extends Transformateur3Acteur implements IAcheteurBourse{
 
 	// Karla 
 	public double demande(Feve f, double cours) {
 		
-		if (!(this.stockFeves.getProduitsEnStock().contains(f))) { 
+		if (this.stockFeves.getstocktotal()+this.stockChocolat.getstocktotal()>0.9*this.capaciteStockageEQ5 || !(this.stockFeves.getProduitsEnStock().contains(f))|| (this.stockChocolatVariableH.getValeur()>0.25*this.capaciteStockageEQ5 && 
+				f.getGamme()==Gamme.HAUTE) ||  (this.stockChocolatVariableM.getValeur()>0.25*this.capaciteStockageEQ5 && 
+						f.getGamme()==Gamme.MOYENNE )) { 
 			return 0.0;
 		}
 		
 		/* on calcule notre besoin en la fève f (en partant du principe que l'on fait que des transformations classiques)
 		 * pour honorer nos contrats */
 		Double difference =  this.dispoFeves.get(f) - this.besoinFeves.get(f);	
-		
-		//Double difference = 5000.0;
 		
 		/* Si notre stock ne permet pas de répondre au besoin,
 		 * on achète avec une marge de 20% supplémntaire */
