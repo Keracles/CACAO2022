@@ -108,17 +108,7 @@ public abstract class Producteur1Acteur implements IActeur, IFabricantChocolatDe
 		res.add(this.getStockMoyenne_NA());
 		res.add(this.getStockMoyenne_BE_NA());
 		
-		res.add(this.getVar01());
-		res.add(this.getVar11());
-		res.add(this.getVar21());
-		res.add(this.getVar31());
-		res.add(this.getVar41());
-		res.add(this.getVar51());
-		res.add(this.getVar61());
-		res.add(this.getVar71());
-		res.add(this.getVar81());
-		res.add(this.getVar91());
-		res.add(this.getVar101());
+		
 		
 		
 		return res;

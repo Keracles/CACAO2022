@@ -75,18 +75,18 @@ public abstract class Producteur1Producteur extends Producteur1Stock{
 				this, 0, 1000000000, this.getVar4());
 		this.pourcentage_cooperative = new Variable(this.getNom()+"% de MilleArbres en coopérative", "Pourcentage d'arbres en coopérative", 
 				this, 0, 1000000000, this.getVar5());
-		this.nombre_BE_moyenne = new Variable(this.getNom()+"% de MilleArbres de qualité basse et pas BE", "Pourcentage d'arbres de qualité basse et pas BE", 
-				this, 0, 1000000000, this.getVar6());
-		this.nombre_BE_haute = new Variable(this.getNom()+"% de MilleArbres de qualité moyenne et pas BE", "Pourcentage d'arbres de qualité moyenne et pas BE", 
-				this, 0, 1000000000, this.getVar7());
-		this.nombre_non_BE_basse = new Variable(this.getNom()+"% de MilleArbres de qualité haute et pas BE", "Pourcentage d'arbres de qualité haute et pas BE", 
-				this, 0, 1000000000, this.getVar8());
-		this.nombre_non_BE_moyenne = new Variable(this.getNom()+"% de MilleArbres de qualité moyenne et BE", "Pourcentage d'arbres de qualité moyenne et BE", 
-				this, 0, 1000000000, this.getVar9());
-		this.nombre_non_BE_haute = new Variable(this.getNom()+"% de MilleArbres de qualité haute et BE", "Pourcentage d'arbres de qualité haute et BE", 
+		this.nombre_BE_moyenne = new Variable(this.getNom()+"Nombre de MilleArbres de qualité moyenne et BE", "Nombre de MilleArbres de qualité moyenne et BE", 
+				this, 0, 1000000000, 30000);
+		this.nombre_BE_haute = new Variable(this.getNom()+"Nombre de MilleArbres de qualité haute et BE", "Nombre de MilleArbres de qualité haute et BE", 
+				this, 0, 1000000000, 30000);
+		this.nombre_non_BE_basse = new Variable(this.getNom()+"Nombre de MilleArbres de qualité basse", "Nombre de MilleArbres de qualité basse", 
+				this, 0, 1000000000, 402000);
+		this.nombre_non_BE_moyenne = new Variable(this.getNom()+"Nombre de MilleArbres de qualité moyenne", "Nombre de MilleArbres de qualité moyenne", 
+				this, 0, 1000000000, 162000);
+		this.nombre_non_BE_haute = new Variable(this.getNom()+"Nombre de MilleArbres de qualité haute", "Nombre de MilleArbres de qualité haute", 
 				this, 0, 1000000000, this.getVar10());
 		this.arbre_tot = new Variable(this.getNom()+"Nombre total de MilleArbres", "Nombre total de MilleArbres", 
-				this, 0, 1000000000, this.getVar0());
+				this, 0, 1000000000, 600000);
 	}
 	 
 	public HashMap<Integer, Integer> getDicoVar() {
@@ -359,24 +359,34 @@ public abstract class Producteur1Producteur extends Producteur1Stock{
 			nb_arbre += parc_j.getNb_arbres_tot();
 			listeRetourVar.add(parc_j.recupVariables());
 		}
-		for (int i=0; i<listeRetourVar.size();i++) {
+		for (int j=0; j<11;j++) {
 			int var = 0;
-			for (int j : listeRetourVar.get(i).keySet()) {
+			for (int i=0 ; i<listeRetourVar.size();i++) {
 				var+=listeRetourVar.get(i).get(j);
 			}
-			this.setDicoVar(i, var);
+			this.setDicoVar(j, var);
 		}
+		//System.out.print(this.getDicoVar(6));
+		//System.out.print(this.getDicoVar());
 		this.arbre_tot.setValeur(this, this.getDicoVar(0));
 		this.maladie1.setValeur(this, this.getDicoVar(1));
 		this.maladie2.setValeur(this, this.getDicoVar(2));
 		this.maladie3.setValeur(this, this.getDicoVar(3));
 		this.maladie4.setValeur(this, this.getDicoVar(4));
-		this.pourcentage_cooperative.setValeur(this, this.getDicoVar(5)/nb_arbre);
-		this.nombre_non_BE_basse.setValeur(this, this.getDicoVar(6)/nb_arbre);
-		this.nombre_non_BE_moyenne.setValeur(this, this.getDicoVar(7)/nb_arbre);
-		this.nombre_non_BE_haute.setValeur(this, this.getDicoVar(8)/nb_arbre);
-		this.nombre_BE_moyenne.setValeur(this, this.getDicoVar(9)/nb_arbre);
-		this.nombre_BE_haute.setValeur(this, this.getDicoVar(10)/nb_arbre);
+		//System.out.print(this.getDicoVar(6)/nb_arbre); précision machine met 0
+		//this.pourcentage_cooperative.setValeur(this, this.getDicoVar(5)/nb_arbre);
+		//this.nombre_non_BE_basse.setValeur(this, this.getDicoVar(6)/nb_arbre);
+		//this.nombre_non_BE_moyenne.setValeur(this, this.getDicoVar(7)/nb_arbre);
+		//this.nombre_non_BE_haute.setValeur(this, this.getDicoVar(8)/nb_arbre);
+		//this.nombre_BE_moyenne.setValeur(this, this.getDicoVar(9)/nb_arbre);
+		//this.nombre_BE_haute.setValeur(this, this.getDicoVar(10)/nb_arbre);
+		
+		this.pourcentage_cooperative.setValeur(this, this.getDicoVar(5));
+		this.nombre_non_BE_basse.setValeur(this, this.getDicoVar(6));
+		this.nombre_non_BE_moyenne.setValeur(this, this.getDicoVar(7));
+		this.nombre_non_BE_haute.setValeur(this, this.getDicoVar(8));
+		this.nombre_BE_moyenne.setValeur(this, this.getDicoVar(9));
+		this.nombre_BE_haute.setValeur(this, this.getDicoVar(10));
 	}
 
 	public int getVar0() {
