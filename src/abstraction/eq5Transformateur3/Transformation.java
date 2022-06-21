@@ -86,56 +86,59 @@ public class Transformation extends AcheteurContrat {
 	// Yves
 	public void next() {
 		super.next();
-		double somme = 0;
-		for (Feve f : this.stockFeves.getProduitsEnStock()) {
-			somme = somme + this.stockFeves.getstock(f);
+		double somme = this.stockFeves.getstocktotal();
+		
+		
+		int step = Filiere.LA_FILIERE.getEtape();
+		double quantite = this.seuilTransformation.getValeur();
+		boolean change=true;
+		HashMap<Feve, Double> copieStock = stockFeves.getCopie();
+		while (change && step<Filiere.LA_FILIERE.getEtape()+20) { //quantité échéancier inférieur à ce qui reste à transformer
+			change=false;
+			for (int i=0; i<this.contratsEnCoursVente.size() ;i++){
+				ChocolatDeMarque c = (ChocolatDeMarque)(this.contratsEnCoursVente.get(i)).getProduit();
+				Gamme gamme = c.getGamme();
+				boolean bioequitable = c.isBioEquitable();
+				Feve feveproduit = null;
+				for (Feve f : Feve.values()){
+					if (f.isBioEquitable() == bioequitable && f.getGamme() == gamme){
+						feveproduit = f;
+					}	
+				}
+				boolean original = c.isOriginal();
+				double qtStepCC = this.contratsEnCoursVente.get(i).getEcheancier().getQuantite(step);
+				if (copieStock.get(feveproduit)>=qtStepCC) {
+					copieStock.put(feveproduit, copieStock.get(feveproduit)-qtStepCC);
+					change=true;
+				} else {
+					if (copieStock.get(feveproduit)>0) {
+						qtStepCC=qtStepCC-copieStock.get(feveproduit);
+						copieStock.put(feveproduit,0.0);
+						change=true;
+					}
+					if (qtStepCC>0 && quantite>=qtStepCC) {
+						this.transformationClassique(feveproduit, qtStepCC, original);
+						quantite = quantite -qtStepCC;
+						change=true;
+					}
+				}
+			}
+			step +=1;
 		}
 		
-			int step = Filiere.LA_FILIERE.getEtape();
-			double quantite = this.seuilTransformation.getValeur();
-			boolean change=true;
-			HashMap<Feve, Double> copieStock = stockFeves.getCopie();
-			while (change && step<Filiere.LA_FILIERE.getEtape()+20) {//quantité échéancier inférieur à ce qui reste à transformer {
-				change=false;
-				for (int i=0; i<this.contratsEnCoursVente.size() ;i++){
-					ChocolatDeMarque c = (ChocolatDeMarque)(this.contratsEnCoursVente.get(i)).getProduit();
-					Gamme gamme = c.getGamme();
-					boolean bioequitable = c.isBioEquitable();
-					Feve feveproduit = null;
-					for (Feve f : Feve.values()){
-						if (f.isBioEquitable() == bioequitable && f.getGamme() == gamme){
-							feveproduit = f;
-						}	
-					}
-					boolean original = c.isOriginal();
-					double qtStepCC = this.contratsEnCoursVente.get(i).getEcheancier().getQuantite(step);
-					if (copieStock.get(feveproduit)>=qtStepCC) {
-						copieStock.put(feveproduit, copieStock.get(feveproduit)-qtStepCC);
-						change=true;
-					} else {
-						if (copieStock.get(feveproduit)>0) {
-							qtStepCC=qtStepCC-copieStock.get(feveproduit);
-							copieStock.put(feveproduit,0.0);
-							change=true;
-						}
-						if (qtStepCC>0 && quantite>=qtStepCC) {
-							this.transformationClassique(feveproduit, qtStepCC, original);
-							quantite = quantite -qtStepCC;
-							change=true;
-						}
-					}
-				}
-				step +=1;
-			}
-			//for (Feve f : this.stockFeves.getProduitsEnStock()) {
-				//if (this.stockFeves.getstock(f)){
-					
-					
-				}
-				
-			
 		
+		/* Si on a rien tranformé et que le stock de chocolat est vide, 
+		 * on transforme pour avoir du stock
+		 */
+		if (quantite == this.seuilTransformation.getValeur() &&  this.stockChocolat.getstocktotal() == 0) {
+			for (Feve f : this.stockFeves.getProduitsEnStock()) {
+				this.transformationClassique(f, quantite/4*0.6, true);
+				this.transformationClassique(f, quantite/4*0.4, false);
+			}
+		}
 	}
+	
+}
 	
 	
 	
