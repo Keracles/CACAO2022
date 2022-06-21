@@ -373,20 +373,25 @@ public abstract class Producteur1Producteur extends Producteur1Stock{
 		this.maladie2.setValeur(this, this.getDicoVar(2));
 		this.maladie3.setValeur(this, this.getDicoVar(3));
 		this.maladie4.setValeur(this, this.getDicoVar(4));
-		//System.out.print(this.getDicoVar(6)/nb_arbre); précision machine met 0
-		//this.pourcentage_cooperative.setValeur(this, this.getDicoVar(5)/nb_arbre);
-		//this.nombre_non_BE_basse.setValeur(this, this.getDicoVar(6)/nb_arbre);
-		//this.nombre_non_BE_moyenne.setValeur(this, this.getDicoVar(7)/nb_arbre);
-		//this.nombre_non_BE_haute.setValeur(this, this.getDicoVar(8)/nb_arbre);
-		//this.nombre_BE_moyenne.setValeur(this, this.getDicoVar(9)/nb_arbre);
-		//this.nombre_BE_haute.setValeur(this, this.getDicoVar(10)/nb_arbre);
+		//System.out.println("nombre d'arbres basse qualité =" + this.getDicoVar(6));
+		//System.out.println("nombre d'arbres total = " +nb_arbre);
+		//System.out.println("Quotient = ="+this.getDicoVar(6)/nb_arbre); 
+		Double nb_arbre_double = (double)nb_arbre;
+		//Si on veut les pourcentages
+		this.pourcentage_cooperative.setValeur(this, this.getDicoVar(5)/nb_arbre_double);
+		this.nombre_non_BE_basse.setValeur(this, this.getDicoVar(6)/nb_arbre_double);
+		this.nombre_non_BE_moyenne.setValeur(this, this.getDicoVar(7)/nb_arbre_double);
+		this.nombre_non_BE_haute.setValeur(this, this.getDicoVar(8)/nb_arbre_double);
+		this.nombre_BE_moyenne.setValeur(this, this.getDicoVar(9)/nb_arbre_double);
+		this.nombre_BE_haute.setValeur(this, this.getDicoVar(10)/nb_arbre_double);
 		
-		this.pourcentage_cooperative.setValeur(this, this.getDicoVar(5));
-		this.nombre_non_BE_basse.setValeur(this, this.getDicoVar(6));
-		this.nombre_non_BE_moyenne.setValeur(this, this.getDicoVar(7));
-		this.nombre_non_BE_haute.setValeur(this, this.getDicoVar(8));
-		this.nombre_BE_moyenne.setValeur(this, this.getDicoVar(9));
-		this.nombre_BE_haute.setValeur(this, this.getDicoVar(10));
+		//Si on veut les chiffres bruts
+		//this.pourcentage_cooperative.setValeur(this, this.getDicoVar(5));
+		//this.nombre_non_BE_basse.setValeur(this, this.getDicoVar(6));
+		//this.nombre_non_BE_moyenne.setValeur(this, this.getDicoVar(7));
+		//this.nombre_non_BE_haute.setValeur(this, this.getDicoVar(8));
+		//this.nombre_BE_moyenne.setValeur(this, this.getDicoVar(9));
+		//this.nombre_BE_haute.setValeur(this, this.getDicoVar(10));
 	}
 
 	public int getVar0() {

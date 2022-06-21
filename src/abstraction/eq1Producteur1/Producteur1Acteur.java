@@ -133,7 +133,7 @@ public abstract class Producteur1Acteur implements IActeur, IFabricantChocolatDe
 
 	public void notificationFaillite(IActeur acteur) {
 		if (this==acteur) {
-		System.out.println("Le Stonks n'était qu'un rêve "+this.getNom());
+		System.out.println("Faillite à l'ut :" + Filiere.LA_FILIERE.getEtape()+"Le Stonks n'était qu'un rêve "+this.getNom());
 		} else {
 			System.out.println("Faillite à l'ut :" + Filiere.LA_FILIERE.getEtape()+"Poor "+acteur.getNom()+"... Why so serious ? "+this.getNom());
 		}
