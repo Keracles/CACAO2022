@@ -144,24 +144,19 @@ public class AcheteurContrat extends AcheteurBourse  implements IAcheteurContrat
 			/* Selon la place libre dans nos entrepots et selon l'etat de nos stocks pour cette feve,
 			 * on essaie d'initier des contrats 
 			 */
-			Double stocktotal = this.stockFeves.getstocktotal()+this.stockChocolat.getstocktotal();
+			Double stocktotal = this.stockChocolat.getstocktotal(); //+this.stockFeves.getstocktotal()
 			
 			for (Feve fv : this.dispoFeves.keySet()) {
 				stocktotal += this.dispoFeves.get(fv);
 			}
 			
-			if (stocktotal < this.capaciteStockageEQ5) {
-
-				//if (this.stockFeves.getstock(f) < this.SeuilMinFeves) {
-					Double placeLibre = this.capaciteStockageEQ5 - stocktotal;
-					if (placeLibre > 0.0) {
-					/* On essaie d'initier un contrat pour une qtt de placeLibre/nombre de types de fèves */
-						Double qtt = placeLibre/4;
-						lanceruncontratAcheteur(f, qtt/10);
-					}
-				//}
+			if (this.dispoFeves.get(f) < this.besoinFeves.get(f)) {
+					Double manque = this.besoinFeves.get(f) - this.dispoFeves.get(f);
+					/* On essaie d'initier un contrat */
+					Double qtt = manque;
+					lanceruncontratAcheteur(f, qtt/10);
+				}
 			}
 		}
-	}
 }
 	

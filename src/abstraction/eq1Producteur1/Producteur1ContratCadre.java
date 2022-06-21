@@ -41,13 +41,13 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 				return true;
 			}
 		}
-		
+		/*
 		if(produit instanceof ChocolatDeMarque && this.getChocolatsProduits().contains(produit)) {
 			Chocolat c = ((ChocolatDeMarque) produit).getChocolat();
 			if(this.getStock(c)>0) { //On peut initier la vente si on a les bonnes quantités
 				return true;
 			}
-		}
+		}*/
 	
 
 		return false;
@@ -92,7 +92,7 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 			return newcontrat;
 		}
 	}
-		
+		/*
 		if(contrat.getProduit() instanceof ChocolatDeMarque) {
 			Chocolat c = ((ChocolatDeMarque) contrat.getProduit()).getChocolat();
 			
@@ -123,7 +123,7 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 				this.getContratCadre().ajouter("On propose 70% de notre stock " + newcontrat.toString());
 				return newcontrat;
 			}
-		}
+		} */
 		this.getContratCadre().ajouter("On ne propose pas ce produit");
 		
 		return null;
@@ -142,7 +142,7 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 		}
 	}
 		
-		
+		/*
 		//CHOCOLAT 
 		
 		if(contrat.getProduit() instanceof ChocolatDeMarque) {
@@ -154,7 +154,7 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 			} else {
 				return 0.0;
 			}
-		}
+		}*/
 		
 		return 0.0;
 		
@@ -187,6 +187,7 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 		return livre;
 		}
 		
+		/*
 		//CHOCOLAT
 		if (contrat.getProduit() instanceof ChocolatDeMarque) {
 		Chocolat c = ((ChocolatDeMarque) contrat.getProduit()).getChocolat();	
@@ -198,7 +199,7 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 		this.getContratCadre().ajouter("LIVRAISON " + contrat.getProduit() +" "+contrat.getAcheteur().getNom()+ " Quantité demandée " + quantite +" Livré " + livre
 				);
 		return livre;
-		}
+		} */
 		
 		return 0.0;
 		
@@ -314,7 +315,7 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 		}
 		
 		
-		
+		/*
 		//CHOCOLAT
 		if (contrat.getProduit() instanceof ChocolatDeMarque) {
 			Chocolat c = ((ChocolatDeMarque) contrat.getProduit()).getChocolat();
@@ -327,7 +328,7 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 			this.getContratCadre().ajouter("Prix qui passe " + contrat.getPrix().toString());
 			return contrat.getPrix();
 			}
-		}
+		}*/
 		
 		return 0.0;
 	
