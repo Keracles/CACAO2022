@@ -10,6 +10,7 @@ import abstraction.eq8Romu.contratsCadres.ExemplaireContratCadre;
 import abstraction.eq8Romu.contratsCadres.IVendeurContratCadre;
 import abstraction.eq8Romu.filiere.Filiere;
 import abstraction.eq8Romu.general.Journal;
+import abstraction.eq8Romu.general.Variable;
 import abstraction.eq8Romu.produits.Chocolat;
 import abstraction.eq8Romu.produits.ChocolatDeMarque;
 import abstraction.eq8Romu.produits.Feve;
@@ -19,6 +20,7 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 	
 	protected List<ExemplaireContratCadre> mesContratEnTantQueVendeur;
 	private Journal contratCadre;
+	private int totalVentes;
 
 	//Auteur : Khéo (sur toute la partie)
 	// Pour l'instant selon ma seule décision, le but d'un condrat cadre sera d'écouler les stocks non vendu. Donc on va partir sur la vente
@@ -49,7 +51,8 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 	
 
 		return false;
-	}
+	}	
+	
 
 	//@Override
 	//Auteur : Khéo

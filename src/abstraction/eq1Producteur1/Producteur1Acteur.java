@@ -22,7 +22,7 @@ public abstract class Producteur1Acteur implements IActeur, IFabricantChocolatDe
 	protected int numero;
 	protected Integer cryptogramme;
 	protected Journal journal;
-	
+	private Variable pourcentage;
 	
 	//Auteur : Khéo
 	public Producteur1Acteur() {
@@ -30,6 +30,8 @@ public abstract class Producteur1Acteur implements IActeur, IFabricantChocolatDe
 		NB_INSTANCES++;
 		this.numero=NB_INSTANCES;
 		this.journal = new Journal(this.getNom()+" activites", this);
+		this.pourcentage= new Variable(this.getNom()+" Pourcentage CC", "Pourcentage des ventes par contrat cadre", 
+				this, 0, 100, 0);
 		
 	}
 
@@ -53,11 +55,27 @@ public abstract class Producteur1Acteur implements IActeur, IFabricantChocolatDe
 		this.cryptogramme = crypto;
 	}
 	
-	//Auteur : Khéo
-	public void next() {
-
+	
+	public int getTotalVente(){
+		int somme = 0;
+		//for (int i=0; i<this. getMesContratEnTantQueVendeur.size()-1;i++) {
+		//	somme+=this.mesContratEnTantQueVendeur.get(i).getQuantiteALivrerAuStep();
+		//}
+		System.out.println("somme "+somme);
+		return somme;
 	}
 	
+	public int getPourcentage() {
+		int i = this.getTotalVente();
+		return i;
+	}
+	
+	//Auteur : Khéo
+	public void next() {
+		int i =this.getPourcentage();
+		}
+	
+
 
 	public List<String> getNomsFilieresProposees() {
 		ArrayList<String> filieres = new ArrayList<String>();

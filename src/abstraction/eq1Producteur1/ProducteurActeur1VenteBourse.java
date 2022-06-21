@@ -123,8 +123,6 @@ public class ProducteurActeur1VenteBourse extends Producteur1Producteur implemen
 
 	//Auteur : Khéo
 	public void notificationVente(Feve f, double quantiteEnKg, double coursEnEuroParKg) {
-		// TODO Auto-generated method stub
-		
 		venteGuerre(this.repartitionGuerre, quantiteEnKg, f);
 	}
 	
@@ -231,6 +229,4 @@ public class ProducteurActeur1VenteBourse extends Producteur1Producteur implemen
 		return repartitionGuerre;
 	}
 	
-	
-
 }
