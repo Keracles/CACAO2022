@@ -65,15 +65,15 @@ public abstract class Producteur1Producteur extends Producteur1Stock{
 		this.dicoVar.put(8, 0);
 		this.dicoVar.put(9, 0);
 		this.dicoVar.put(10, 0);
-		this.maladie1= new Variable(this.getNom()+"% MilleArbres malades stade 1", "Pourcentage d'arbres atteint de maladie au stade 1", 
+		this.maladie1= new Variable(this.getNom()+"Nombre de MilleArbres malades stade 1", "Nombre de MilleArbres atteint de maladie au stade 1", 
 				this, 0, 1000000000, this.getVar1());
-		this.maladie2= new Variable(this.getNom()+"% MilleArbres malades stade 2", "Pourcentage d'arbres atteint de maladie au stade 2", 
+		this.maladie2= new Variable(this.getNom()+"Nombre de MilleArbres malades stade 2", "Nombre de MilleArbres atteint de maladie au stade 2", 
 				this, 0, 1000000000, this.getVar2());
-		this.maladie3= new Variable(this.getNom()+"% MilleArbres malades stade 3", "Pourcentage d'arbres atteint de maladie au stade 3", 
+		this.maladie3= new Variable(this.getNom()+"Nombre de MilleArbres malades stade 3", "Nombre de MilleArbres atteint de maladie au stade 3", 
 				this, 0, 1000000000, this.getVar3());
-		this.maladie4= new Variable(this.getNom()+"% MilleArbres malades stade 4", "Pourcentage d'arbres atteint de maladie au stade 4", 
+		this.maladie4= new Variable(this.getNom()+"Nombre de MilleArbres malades stade 4", "Nombre de MilleArbres atteint de maladie au stade 4", 
 				this, 0, 1000000000, this.getVar4());
-		this.pourcentage_cooperative = new Variable(this.getNom()+"% de MilleArbres en coopérative", "Pourcentage d'arbres en coopérative", 
+		this.pourcentage_cooperative = new Variable(this.getNom()+"Nombre de MilleArbres en coopérative", "Nombre de MilleArbres en coopérative", 
 				this, 0, 1000000000, this.getVar5());
 		this.nombre_BE_moyenne = new Variable(this.getNom()+"Nombre de MilleArbres de qualité moyenne et BE", "Nombre de MilleArbres de qualité moyenne et BE", 
 				this, 0, 1000000000, 30000);
