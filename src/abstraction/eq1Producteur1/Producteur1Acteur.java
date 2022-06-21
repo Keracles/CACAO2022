@@ -86,6 +86,19 @@ public abstract class Producteur1Acteur implements IActeur, IFabricantChocolatDe
 	public abstract Variable getStockHaut_BE_NA();
 	public abstract Variable getStockMoyenne_NA();
 	public abstract Variable getStockMoyenne_BE_NA();
+	
+	public abstract Variable getVar01();
+	public abstract Variable getVar11();
+	public abstract Variable getVar21();
+	public abstract Variable getVar31();
+	public abstract Variable getVar41();
+	public abstract Variable getVar51();
+	public abstract Variable getVar61();
+	public abstract Variable getVar71();
+	public abstract Variable getVar81();
+	public abstract Variable getVar91();
+	public abstract Variable getVar101();
+	
 
 	
 	//Auteur : Khéo
@@ -100,6 +113,9 @@ public abstract class Producteur1Acteur implements IActeur, IFabricantChocolatDe
 		res.add(this.getStockHaut_BE_NA());
 		res.add(this.getStockMoyenne_NA());
 		res.add(this.getStockMoyenne_BE_NA());
+		
+		
+		
 		
 		return res;
 	}
@@ -123,9 +139,9 @@ public abstract class Producteur1Acteur implements IActeur, IFabricantChocolatDe
 
 	public void notificationFaillite(IActeur acteur) {
 		if (this==acteur) {
-		System.out.println("Le Stonks n'était qu'un rêve "+this.getNom());
+		System.out.println("Faillite à l'ut :" + Filiere.LA_FILIERE.getEtape()+"Le Stonks n'était qu'un rêve "+this.getNom());
 		} else {
-			System.out.println("Poor "+acteur.getNom()+"... Why so serious ? "+this.getNom());
+			System.out.println("Faillite à l'ut :" + Filiere.LA_FILIERE.getEtape()+"Poor "+acteur.getNom()+"... Why so serious ? "+this.getNom());
 		}
 	}
 	

@@ -533,4 +533,48 @@ public class Parc {
 		dicorecolte.put(Feve.FEVE_HAUTE_BIO_EQUITABLE,BE_haute);
 		return dicorecolte;
 	}
+	
+	public HashMap<Integer, Integer> recupVariables() {
+		HashMap<Integer, Integer> retourVar = new HashMap<Integer, Integer>();
+		int malade1 = 0;
+		int malade2 = 0;
+		int malade3 = 0;
+		int malade4 = 0;
+		int nb_coopérative = 0;
+		for (Feve f : this.getCacaoyers().keySet()) {
+			ArrayList<MilleArbre> liste_arbres = this.getListeArbre(f);
+			for (int i=0; i<liste_arbres.size(); i++) {
+				MilleArbre arbre_i = liste_arbres.get(i);
+				boolean isCoop = arbre_i.getCooperative();
+				int maladie = arbre_i.getStade_maladie();
+				if (maladie==1) {
+					malade1+=1;
+				}
+				if (maladie==2) { 
+					malade2+=1;
+				}
+				if (maladie==3) {
+					malade3+=1;
+				}
+				if (maladie==4) {
+					malade4+=1;
+				}
+				if (isCoop) {
+					nb_coopérative+=1;
+				}
+			}
+		}
+		retourVar.putIfAbsent(0, this.getNb_arbres_tot());
+		retourVar.putIfAbsent(1, malade1);
+		retourVar.putIfAbsent(2, malade2);
+		retourVar.putIfAbsent(3, malade3);
+		retourVar.putIfAbsent(4, malade4);
+		retourVar.putIfAbsent(5, nb_coopérative);
+		retourVar.putIfAbsent(6, this.getNombre_non_BE_basse());
+		retourVar.putIfAbsent(7, this.getNombre_non_BE_moyenne());
+		retourVar.putIfAbsent(8, this.getNombre_non_BE_haute());
+		retourVar.putIfAbsent(9, this.getNombre_BE_moyenne());
+		retourVar.putIfAbsent(10, this.getNombre_BE_haute());
+		return retourVar;
+	}
 }

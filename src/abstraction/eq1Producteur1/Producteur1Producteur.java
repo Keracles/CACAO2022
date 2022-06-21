@@ -22,6 +22,22 @@ public abstract class Producteur1Producteur extends Producteur1Stock{
 	private int mecontentement_global_moyenne;
 	private int mecontentement_global_haute;
 	private double vente_tot;
+	private HashMap<Integer, Integer> dicoVar;
+	
+	private Variable pourcentage_cooperative;
+	private Variable maladie1;
+	private Variable maladie2;
+	private Variable maladie3;
+	private Variable maladie4;
+	private Variable nombre_BE_moyenne;
+	private Variable nombre_BE_haute;
+	private Variable nombre_non_BE_basse;
+	private Variable nombre_non_BE_moyenne;
+	private Variable nombre_non_BE_haute;
+	private Variable arbre_tot;
+	
+	
+	
 	
 	public Producteur1Producteur() {
 		super();
@@ -37,8 +53,57 @@ public abstract class Producteur1Producteur extends Producteur1Stock{
 		this.mecontentement_global_basse = 0;
 		this.mecontentement_global_moyenne = 0;
 		this.mecontentement_global_haute =0;
+		this.dicoVar = new HashMap<Integer, Integer>();
+		this.dicoVar.put(0, 0);
+		this.dicoVar.put(1, 0);
+		this.dicoVar.put(2, 0);
+		this.dicoVar.put(3, 0);
+		this.dicoVar.put(4, 0);
+		this.dicoVar.put(5, 0);
+		this.dicoVar.put(6, 0);
+		this.dicoVar.put(7, 0);
+		this.dicoVar.put(8, 0);
+		this.dicoVar.put(9, 0);
+		this.dicoVar.put(10, 0);
+		this.maladie1= new Variable(this.getNom()+"Nombre de MilleArbres malades stade 1", "Nombre de MilleArbres atteint de maladie au stade 1", 
+				this, 0, 1000000000, this.getVar1());
+		this.maladie2= new Variable(this.getNom()+"Nombre de MilleArbres malades stade 2", "Nombre de MilleArbres atteint de maladie au stade 2", 
+				this, 0, 1000000000, this.getVar2());
+		this.maladie3= new Variable(this.getNom()+"Nombre de MilleArbres malades stade 3", "Nombre de MilleArbres atteint de maladie au stade 3", 
+				this, 0, 1000000000, this.getVar3());
+		this.maladie4= new Variable(this.getNom()+"Nombre de MilleArbres malades stade 4", "Nombre de MilleArbres atteint de maladie au stade 4", 
+				this, 0, 1000000000, this.getVar4());
+		this.pourcentage_cooperative = new Variable(this.getNom()+"Nombre de MilleArbres en coopérative", "Nombre de MilleArbres en coopérative", 
+				this, 0, 1000000000, this.getVar5());
+		this.nombre_BE_moyenne = new Variable(this.getNom()+"Nombre de MilleArbres de qualité moyenne et BE", "Nombre de MilleArbres de qualité moyenne et BE", 
+				this, 0, 1000000000, 30000);
+		this.nombre_BE_haute = new Variable(this.getNom()+"Nombre de MilleArbres de qualité haute et BE", "Nombre de MilleArbres de qualité haute et BE", 
+				this, 0, 1000000000, 30000);
+		this.nombre_non_BE_basse = new Variable(this.getNom()+"Nombre de MilleArbres de qualité basse", "Nombre de MilleArbres de qualité basse", 
+				this, 0, 1000000000, 402000);
+		this.nombre_non_BE_moyenne = new Variable(this.getNom()+"Nombre de MilleArbres de qualité moyenne", "Nombre de MilleArbres de qualité moyenne", 
+				this, 0, 1000000000, 162000);
+		this.nombre_non_BE_haute = new Variable(this.getNom()+"Nombre de MilleArbres de qualité haute", "Nombre de MilleArbres de qualité haute", 
+				this, 0, 1000000000, this.getVar10());
+		this.arbre_tot = new Variable(this.getNom()+"Nombre total de MilleArbres", "Nombre total de MilleArbres", 
+				this, 0, 1000000000, 600000);
 	}
 	 
+	public HashMap<Integer, Integer> getDicoVar() {
+		return this.dicoVar;
+	}
+	public int getDicoVar(int i) {
+		return this.getDicoVar().get(i);
+	}
+	
+	public void setDicoVar(HashMap<Integer, Integer> dic) {
+		this.dicoVar = dic;
+	}
+
+	public void setDicoVar(int key, int val) {
+		this.dicoVar.replace(key, val);
+	}
+
 	public Parc getGhana() { //Écrit par Antoine
 		return ListeParc.get(0);
 	}
@@ -177,7 +242,7 @@ public abstract class Producteur1Producteur extends Producteur1Stock{
 	}
 	
 	public int MilleArbresAPlanter(Parc p, HashMap<Feve, Double> venteChoco) { //Écrit par Antoine
-		//Donne le nombre de MilleArbres à planter par parc en fonction de l'évolution de la demande
+		//Donne le nombre de MilleArbres à planter par parc en fonction de l'évolution de la demande (this.getVente_tot() correspond à la demande 24ut avant -> changer pour avoir le max sur les 24 ut précédentes ?)
 		double vente_tot = getVente_tot_choco(venteChoco);
 		double augmentation_max = 0.02;
 		int nb_arbre = p.getNb_arbres_tot();
@@ -286,7 +351,116 @@ public abstract class Producteur1Producteur extends Producteur1Stock{
 			return dicoVente;
 		}
 	}
+	public void UpdateVariable() {
+		LinkedList<HashMap<Integer, Integer>> listeRetourVar = new LinkedList<HashMap<Integer, Integer>>();
+		int nb_arbre = 0;
+		for (int j=0; j<ListeParc.size();j++) {
+			Parc parc_j = this.getParc(j);
+			nb_arbre += parc_j.getNb_arbres_tot();
+			listeRetourVar.add(parc_j.recupVariables());
+		}
+		for (int j=0; j<11;j++) {
+			int var = 0;
+			for (int i=0 ; i<listeRetourVar.size();i++) {
+				var+=listeRetourVar.get(i).get(j);
+			}
+			this.setDicoVar(j, var);
+		}
+		//System.out.print(this.getDicoVar(6));
+		//System.out.print(this.getDicoVar());
+		this.arbre_tot.setValeur(this, this.getDicoVar(0));
+		this.maladie1.setValeur(this, this.getDicoVar(1));
+		this.maladie2.setValeur(this, this.getDicoVar(2));
+		this.maladie3.setValeur(this, this.getDicoVar(3));
+		this.maladie4.setValeur(this, this.getDicoVar(4));
+		//System.out.println("nombre d'arbres basse qualité =" + this.getDicoVar(6));
+		//System.out.println("nombre d'arbres total = " +nb_arbre);
+		//System.out.println("Quotient = ="+this.getDicoVar(6)/nb_arbre); 
+		Double nb_arbre_double = (double)nb_arbre;
+		//Si on veut les pourcentages
+		this.pourcentage_cooperative.setValeur(this, this.getDicoVar(5)/nb_arbre_double);
+		this.nombre_non_BE_basse.setValeur(this, this.getDicoVar(6)/nb_arbre_double);
+		this.nombre_non_BE_moyenne.setValeur(this, this.getDicoVar(7)/nb_arbre_double);
+		this.nombre_non_BE_haute.setValeur(this, this.getDicoVar(8)/nb_arbre_double);
+		this.nombre_BE_moyenne.setValeur(this, this.getDicoVar(9)/nb_arbre_double);
+		this.nombre_BE_haute.setValeur(this, this.getDicoVar(10)/nb_arbre_double);
+		
+		//Si on veut les chiffres bruts
+		//this.pourcentage_cooperative.setValeur(this, this.getDicoVar(5));
+		//this.nombre_non_BE_basse.setValeur(this, this.getDicoVar(6));
+		//this.nombre_non_BE_moyenne.setValeur(this, this.getDicoVar(7));
+		//this.nombre_non_BE_haute.setValeur(this, this.getDicoVar(8));
+		//this.nombre_BE_moyenne.setValeur(this, this.getDicoVar(9));
+		//this.nombre_BE_haute.setValeur(this, this.getDicoVar(10));
+	}
 
+	public int getVar0() {
+		return this.getDicoVar(0);
+	}
+	public int getVar1() {
+		return this.getDicoVar(1);
+	}
+	public int getVar2() {
+		return this.getDicoVar(2);
+	}
+	public int getVar3() {
+		return this.getDicoVar(3);
+	}
+	public int getVar4() {
+		return this.getDicoVar(4);
+	}
+	public int getVar5() {
+		return this.getDicoVar(5);
+	}
+	public int getVar6() {
+		return this.getDicoVar(6);
+	}
+	public int getVar7() {
+		return this.getDicoVar(7);
+	}
+	public int getVar8() {
+		return this.getDicoVar(8);
+	}
+	public int getVar9() {
+		return this.getDicoVar(9);
+	}
+	public int getVar10() {
+		return this.getDicoVar(10);
+	}
+	public Variable getVar01() {
+		return this.arbre_tot;
+	}
+	public Variable getVar11() {
+		return this.maladie1;
+	}
+	public Variable getVar21() {
+		return this.maladie2;
+	}
+	public Variable getVar31() {
+		return this.maladie3;
+	}
+	public Variable getVar41() {
+		return this.maladie4;
+	}
+	public Variable getVar51() {
+		return this.pourcentage_cooperative;
+	}
+	public Variable getVar61() {
+		return this.nombre_non_BE_basse;
+	}
+	public Variable getVar71() {
+		return this.nombre_non_BE_moyenne;
+	}
+	public Variable getVar81() {
+		return this.nombre_non_BE_haute;
+	}
+	public Variable getVar91() {
+		return this.nombre_BE_moyenne;
+	}
+	public Variable getVar101() {
+		return this.nombre_BE_haute;
+	}
+	
 	public void next() { //Écrit par Antoine
 		super.next();
 		HashMap<Feve, Double> venteChoco_pourcentage = this.getVenteChoco(true);
@@ -361,6 +535,10 @@ public abstract class Producteur1Producteur extends Producteur1Stock{
 		
 		//Retirer l'argent 
 		Filiere.LA_FILIERE.getBanque().virer(this, this.cryptogramme, Filiere.LA_FILIERE.getBanque(), prixTotal);
+	
+	
+		UpdateVariable();
+
 	}
 
 	/**
