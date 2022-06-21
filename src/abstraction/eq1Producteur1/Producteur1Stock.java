@@ -60,7 +60,17 @@ public abstract class Producteur1Stock extends Producteur1Acteur {
 		
 	}
 	
-	
+	public abstract Variable getVar01();
+	public abstract Variable getVar11();
+	public abstract Variable getVar21();
+	public abstract Variable getVar31();
+	public abstract Variable getVar41();
+	public abstract Variable getVar51();
+	public abstract Variable getVar61();
+	public abstract Variable getVar71();
+	public abstract Variable getVar81();
+	public abstract Variable getVar91();
+	public abstract Variable getVar101();
 	
 
 

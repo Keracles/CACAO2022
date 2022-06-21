@@ -80,6 +80,19 @@ public abstract class Producteur1Acteur implements IActeur, IFabricantChocolatDe
 	public abstract Variable getStockHaut_BE_NA();
 	public abstract Variable getStockMoyenne_NA();
 	public abstract Variable getStockMoyenne_BE_NA();
+	
+	public abstract Variable getVar01();
+	public abstract Variable getVar11();
+	public abstract Variable getVar21();
+	public abstract Variable getVar31();
+	public abstract Variable getVar41();
+	public abstract Variable getVar51();
+	public abstract Variable getVar61();
+	public abstract Variable getVar71();
+	public abstract Variable getVar81();
+	public abstract Variable getVar91();
+	public abstract Variable getVar101();
+	
 
 	
 	//Auteur : Khéo
@@ -94,6 +107,19 @@ public abstract class Producteur1Acteur implements IActeur, IFabricantChocolatDe
 		res.add(this.getStockHaut_BE_NA());
 		res.add(this.getStockMoyenne_NA());
 		res.add(this.getStockMoyenne_BE_NA());
+		
+		res.add(this.getVar01());
+		res.add(this.getVar11());
+		res.add(this.getVar21());
+		res.add(this.getVar31());
+		res.add(this.getVar41());
+		res.add(this.getVar51());
+		res.add(this.getVar61());
+		res.add(this.getVar71());
+		res.add(this.getVar81());
+		res.add(this.getVar91());
+		res.add(this.getVar101());
+		
 		
 		return res;
 	}
