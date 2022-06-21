@@ -20,6 +20,7 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 	
 	protected List<ExemplaireContratCadre> mesContratEnTantQueVendeur;
 	private Journal contratCadre;
+	private Variable pourcentage;
 	private int totalVentes;
 
 	//Auteur : Khéo (sur toute la partie)
@@ -51,8 +52,17 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 	
 
 		return false;
-	}	
+	}
 	
+	
+	
+
+	/**
+	 * @return the mesContratEnTantQueVendeur
+	 */
+	public List<ExemplaireContratCadre> getMesContratEnTantQueVendeur() {
+		return mesContratEnTantQueVendeur;
+	}
 
 	//@Override
 	//Auteur : Khéo
@@ -332,5 +342,27 @@ public class Producteur1ContratCadre extends Producteur1Transfo implements IVend
 		
 		return 0.0;
 	
+	}
+	
+	public int getTotalVenteCC(){
+		int somme = 0;
+		for (int i=0; i<this.mesContratEnTantQueVendeur.size()-1;i++) {
+			somme+=this.mesContratEnTantQueVendeur.get(i).getQuantiteALivrerAuStep();
+		}
+		System.out.println("somme "+somme);
+		return somme;
+	}
+	/*
+	 * public int getTotalVenteBourse() { int somme = 0; for (int i=0; i<this.;i++)
+	 * { somme+=this.mesContratEnTantQueVendeur.get(i).getQuantiteALivrerAuStep(); }
+	 * System.out.println("somme "+somme); return somme; }
+	 */
+	
+	public void setPourcentage() {
+			pourcentage.setValeur(this,this.getTotalVenteCC()/(this.getVente_tot()+this.getTotalVenteCC()));
+	}
+	
+	public Variable getPourcentage() {
+		return pourcentage;
 	}
 }

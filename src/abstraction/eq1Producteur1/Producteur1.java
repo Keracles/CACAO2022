@@ -30,7 +30,8 @@ public class Producteur1 extends Producteur1ContratCadre{
 			res.add(this.getStockMQ());
 			res.add(this.getStockMQ_BE());
 			
-			//res.add(this.getPourcentage());
+			this.setPourcentage();
+			res.add(this.getPourcentage());
 			
 			return res;
 		}

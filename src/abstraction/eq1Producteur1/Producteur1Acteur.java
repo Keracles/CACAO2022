@@ -56,23 +56,11 @@ public abstract class Producteur1Acteur implements IActeur, IFabricantChocolatDe
 	}
 	
 	
-	public int getTotalVente(){
-		int somme = 0;
-		//for (int i=0; i<this. getMesContratEnTantQueVendeur.size()-1;i++) {
-		//	somme+=this.mesContratEnTantQueVendeur.get(i).getQuantiteALivrerAuStep();
-		//}
-		System.out.println("somme "+somme);
-		return somme;
-	}
 	
-	public int getPourcentage() {
-		int i = this.getTotalVente();
-		return i;
-	}
 	
 	//Auteur : Khéo
 	public void next() {
-		int i =this.getPourcentage();
+		
 		}
 	
 
